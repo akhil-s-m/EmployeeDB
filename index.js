@@ -1,22 +1,23 @@
 import express from "express";
 import mongoose from "mongoose";
 import employeeRoutes from "./routes/employee.routes.js";
+import dotenv from "dotenv";
+dotenv.config();
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected!"))
+  .catch((err) => console.error(err));
 const PORT = process.env.PORT || 3000;
 
+const app = express();
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/employees", employeeRoutes);
-mongoose
-  .connect(
-    "mongodb+srv://akhil:NCUw5GFClAK4v3U2@cluster0.xfcbukv.mongodb.net/?appName=Cluster0",
-  )
-  .then(() => console.log("Connected!"))
-  .catch((err) => console.error(err));
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
