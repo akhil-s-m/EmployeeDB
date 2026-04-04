@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import employeeRoutes from "./routes/employee.routes.js";
 import dotenv from "dotenv";
+import authenticateApiKey from "./middleware/auth.middleware.js";
+
 dotenv.config();
 
 mongoose
@@ -17,7 +19,7 @@ app.listen(PORT, () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/employees", employeeRoutes);
+app.use("/api/employees", authenticateApiKey, employeeRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
