@@ -1,7 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
-import Employee from "./models/employee.model.js";
 import employeeRoutes from "./routes/employee.routes.js";
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -16,10 +20,6 @@ mongoose
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
-});
-
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
 });
 
 app.get("/about", (req, res) => {
