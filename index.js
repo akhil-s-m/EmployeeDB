@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import employeeRoutes from "./routes/employee.routes.js";
+import departmentRoutes from "./routes/department.routes.js";
+import statusRoutes from "./routes/status.routes.js";
 import dotenv from "dotenv";
 import authenticateApiKey from "./middleware/auth.middleware.js";
 
@@ -20,7 +22,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/employees", authenticateApiKey, employeeRoutes);
-
+app.use("/api/departments", authenticateApiKey, departmentRoutes);
+app.use("/api/statuses", authenticateApiKey, statusRoutes);
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });

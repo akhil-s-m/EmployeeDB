@@ -10,6 +10,7 @@ const authenticateApiKey = (req, res, next) => {
   if (apiKey !== process.env.EMPLOYEE_API_KEY) {
     return res.status(403).json({
       message: "Invalid API key",
+      providedKey: apiKey,
     });
   }
 
